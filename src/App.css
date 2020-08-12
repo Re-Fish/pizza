@@ -10,6 +10,19 @@
   pointer-events: none;
 }
 
+.Tomato {
+  background: tomato;
+}
+
+.Pointer {
+  cursor: pointer;
+}
+
+.vertical-gaps {
+	padding-top: 3em;
+	padding-bottom: 3em;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

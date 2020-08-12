@@ -5,10 +5,10 @@ import Image from 'react-bootstrap/Image';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
 
+import { DELIVERY_FEE } from '../../constants'
 import { currencyType, cartItemType } from '../propTypes';
-import {formatAmount, getCartSum} from "../../helpers/cardHelpers";
+import { formatAmount, getCartSum } from '../../helpers/cardHelpers';
 
-const DELIVERY_FEE = 5;
 
 const OrderTable = ({ cart, currency, removeFromCart }) => {
 	const totalSum = getCartSum(cart) + DELIVERY_FEE;
@@ -54,14 +54,14 @@ const OrderTable = ({ cart, currency, removeFromCart }) => {
 								</tr>
 							))}
 							<tr>
-								<th colSpan={4} className="pull-left">Delivery fee</th>
+								<th colSpan={4} className="table-total">Delivery fee</th>
 								<th>{formatAmount(DELIVERY_FEE, currency)}</th>
 								<th>&nbsp;</th>
 							</tr>
 							</tbody>
 							<tfoot>
 							<tr>
-								<th colSpan={4} className="pull-left">Subtotal</th>
+								<th colSpan={4} className="table-total">Grand Total</th>
 								<th>{formatAmount(totalSum, currency)}</th>
 								<th>&nbsp;</th>
 							</tr>

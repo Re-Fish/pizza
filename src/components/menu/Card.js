@@ -1,40 +1,50 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Card from 'react-bootstrap/Card';
-import Badge from 'react-bootstrap/Badge';
 import Button from 'react-bootstrap/Button';
+import Accordion from 'react-bootstrap/Accordion';
 
 import { Currency } from '../../constants';
+import { menuItemType } from '../propTypes';
 import { formatAmount } from '../../helpers/cardHelpers';
 
 const MenuCard = ({ item, currency, addToCart, onOpenDetails }) => (
-	<Card key={item.id} className="bg-warning mb-1">
-		<Card.Img variant="top" src={item.image} />
-		<Badge variant="danger">{formatAmount(item.price, currency)}</Badge>
-		<Card.Body>
-			<Card.Title className="font-weight-bold">{item.title}</Card.Title>
-			<Card.Text>{item.info}</Card.Text>
-		</Card.Body>
-		<Button variant="warning" hidden={!item.description} onClick={onOpenDetails}>
-			Details
-		</Button>
-		<Card.Footer>
-			<Button
-				id={item.id}
-				variant="danger"
-				onClick={() => addToCart(item)}
-			>
-				Add to cart
-			</Button>
-		</Card.Footer>
-	</Card>
+	<Accordion>
+		<Card className="bg-warning mb-4">
+			<Card.Img variant="top" src={item.image} />
+			<Card.Body>
+				<Card.Title className="font-weight-bold">{item.title}</Card.Title>
+				<Card.Subtitle className="mb-2">({item.measure})</Card.Subtitle>
+				<Button
+					id={item.id}
+					variant="danger"
+					onClick={() => addToCart(item)}
+				>
+					{formatAmount(item.price, currency)}
+				</Button>
+				<Accordion.Collapse eventKey={item.id}>
+					<Card.Body className="p-0 mt-3">
+						<Card.Text>
+							{item.info}
+						</Card.Text>
+						<Button variant="dark" hidden={!item.description} onClick={() => onOpenDetails(item)}>
+							Description
+					</Button>
+					</Card.Body>
+				</Accordion.Collapse>
+			</Card.Body>
+			<Accordion.Toggle as={Card.Footer} className="Pointer" eventKey={item.id} hidden={!item.info}>
+				Info
+        </Accordion.Toggle>
+		</Card>
+	</Accordion>
 );
 
 MenuCard.propTypes = {
-	item: PropTypes.object,
+	item: menuItemType,
 	currency: PropTypes.oneOf([Currency.EUR, Currency.USD]),
-	addToCart: PropTypes.func,
-	onOpenDetails: PropTypes.func,
+	addToCart: PropTypes.func.isRequired,
+	onOpenDetails: PropTypes.func.isRequired,
 };
 
 export default MenuCard;

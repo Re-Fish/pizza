@@ -17,3 +17,16 @@ export const cartItemType = PropTypes.shape({
 	quantity: PropTypes.number,
 });
 export const currencyType = PropTypes.oneOf([Currency.EUR, Currency.USD]);
+export const userType = PropTypes.shape({
+	name: PropTypes.string,
+	email: PropTypes.string,
+	orderHistory: PropTypes.arrayOf(PropTypes.shape({
+		date: PropTypes.string,
+		fullPrice: PropTypes.string,
+		cart: PropTypes.arrayOf(PropTypes.shape({
+			title: PropTypes.string,
+			price: PropTypes.number,
+			quantity: PropTypes.number,
+		})),
+	}))
+});

@@ -1,6 +1,6 @@
 import { ApiMocks } from '../constants';
 
-const fakeApiCall = (dispatch, action, payload) => {
+const fakeApiCall = async (dispatch, action, payload) => {
 	dispatch({ type: `${action}Start` });
 	setTimeout(
 		() => {
@@ -11,21 +11,6 @@ const fakeApiCall = (dispatch, action, payload) => {
 		},
 		ApiMocks.delay
 	);
-};
-
-const saveOrder = ({ cart, delivery }) => {
-	if (global.localStorage) {
-		const hist = global.localStorage.getItem('pizzaOrderHistory') || "[]";
-		const { image, info, description, ...restCart } = cart;
-		global.localStorage.setItem('pizzaOrderHistory', JSON.stringify([
-			...JSON.parse(hist),
-			{
-				date: new Date(),
-				cart: restCart,
-				delivery,
-			}
-		]));
-	}
 };
 
 const loadMenu = (dispatch) => {
@@ -40,17 +25,42 @@ const removeFromCart = (dispatch, item) => {
 	fakeApiCall(dispatch, 'removeFromCart', item);
 };
 
-const orderSubmit = (dispatch, cart, delivery) => {
-	saveOrder({ cart, delivery });
+const orderSubmit = (dispatch, cart, currency, delivery) => {
 	fakeApiCall(dispatch, 'orderSubmit', {
 		cart,
+		currency,
 		delivery,
 	});
 };
+
+const loginUser = (dispatch, credentials, closeLoginModal) => {
+	const action = 'loginUser';
+	dispatch({ type: `${action}Start` });
+	setTimeout(
+		() => {
+			if (credentials.email === ApiMocks.user.email) {
+				closeLoginModal();
+				dispatch({
+					type: `${action}Success`,
+					payload: ApiMocks.user,
+				});
+			} else {
+				dispatch({ type: `${action}Failed` });
+			}
+		},
+		ApiMocks.delay
+	);
+};
+
+const logoutUser = (dispatch) => {
+	fakeApiCall(dispatch, 'logout');
+}
 
 export {
 	loadMenu,
 	addToCard,
 	removeFromCart,
 	orderSubmit,
+	loginUser,
+	logoutUser,
 };

@@ -1,16 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Container from 'react-bootstrap/Container';
-import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
+import Spinner from 'react-bootstrap/Spinner';
 
-import { currencyType, menuItemType, cartItemType } from '../propTypes';
+import { currencyType, cartItemType } from '../propTypes';
 import OrderTable from './OrderTable';
 import OrderFormSubmit from './OrderFormSubmit';
 
 import './OrderPage.css';
-import Spinner from "react-bootstrap/Spinner";
 
 
 const OrderPage = ({
@@ -21,36 +19,29 @@ const OrderPage = ({
 	onSubmitOrder,
 	orderBeingSent
 }) => (
-	<>
-		<Container>
-			<OrderTable
-				cart={cart}
-				currency={currency}
-				removeFromCart={removeItemFromCart}
-			/>
-		</Container>
-
-		{orderBeingSent && (
-			<Spinner animation="border" variant="secondary" />
-		)}
-		{(!orderBeingSent && !!cart?.length) && (
-			<Container className="order-submit-form">
-				To complete the order please submit delivery information below:
-				<OrderFormSubmit
-					onSubmitOrder={onSubmitOrder}
+		<>
+			<Container>
+				<OrderTable
+					cart={cart}
+					currency={currency}
+					removeFromCart={removeItemFromCart}
 				/>
 			</Container>
-		)}
-		<div className="vertical-gaps">
-			<input
-				className="btn btn-outline-dark"
-				type="button"
-				value="go back to menu"
-				onClick={navigateToMenu}
-			/>
-		</div>
-	</>
-);
+
+			{orderBeingSent && (
+				<Spinner animation="border" variant="secondary" />
+			)}
+			{(!orderBeingSent && !!cart?.length) && (
+				<Container className="order-submit-form">
+					To complete the order please fill in delivery information below:
+					<OrderFormSubmit {...{ onSubmitOrder }} />
+				</Container>
+			)}
+			<div className="vertical-gaps">
+				<Button variant="outline-dark" onClick={navigateToMenu}>return to menu</Button>
+			</div>
+		</>
+	);
 
 
 OrderPage.propTypes = {

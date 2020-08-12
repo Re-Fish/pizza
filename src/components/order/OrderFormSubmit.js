@@ -1,20 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import Container from "react-bootstrap/Container";
-import Col from "react-bootstrap/Col";
+import Container from 'react-bootstrap/Container';
+import Col from 'react-bootstrap/Col';
 
 const OrderFormSubmit = ({
 	onSubmitOrder,
 }) => {
 	const handleSubmit = (e) => {
+		e.preventDefault();
+		e.stopPropagation();
 		const {
 			formGridName,
 			formGridPhone,
 			formGridAddress,
 		} = e.target;
-		return onSubmitOrder({
+		onSubmitOrder({
 			name: formGridName.value,
 			phone: formGridPhone.value,
 			addr: formGridAddress.value,
@@ -29,29 +31,24 @@ const OrderFormSubmit = ({
 				<Form.Row>
 					<Form.Group as={Col} controlId="formGridName">
 						<Form.Label>Name</Form.Label>
-						<Form.Control />
+						<Form.Control placeholder="Name" required />
 					</Form.Group>
 
 					<Form.Group as={Col} controlId="formGridPhone">
 						<Form.Label>Phone number</Form.Label>
-						<Form.Control />
+						<Form.Control type="number" placeholder="Phone number" required />
 					</Form.Group>
 				</Form.Row>
 
 				<Form.Group controlId="formGridAddress">
 					<Form.Label>Address</Form.Label>
-					<Form.Control placeholder="1234 Main St" />
+					<Form.Control placeholder="1234 Main St" required />
 				</Form.Group>
 
-				<Form.Group id="formGridCheckbox">
-					<Form.Check type="checkbox" label="Contact me" />
-				</Form.Group>
-
-				<Button variant="primary" type="submit">
-					Submit 🍕😋🍕
+				<Button variant="success" type="submit">
+					Submit <span role="img" aria-hidden="true">😋🍕🚛</span>
 				</Button>
 			</Form>
-
 		</Container>
 	)
 };

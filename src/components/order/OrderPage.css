@@ -1,8 +1,7 @@
-.vertical-gaps {
-	padding-top: 3em;
-	padding-bottom: 3em;
-}
-
 .order-submit-form {
 	color: #333;
+}
+
+table th.table-total {
+	text-align: right;
 }
