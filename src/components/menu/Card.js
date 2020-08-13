@@ -33,7 +33,7 @@ const MenuCard = ({ item, currency, addToCart, onOpenDetails }) => (
 					</Card.Body>
 				</Accordion.Collapse>
 			</Card.Body>
-			<Accordion.Toggle as={Card.Footer} className="Pointer" eventKey={item.id} hidden={!item.info}>
+			<Accordion.Toggle as={Card.Footer} className="pointer" eventKey={item.id} hidden={!item.info}>
 				Info
         </Accordion.Toggle>
 		</Card>

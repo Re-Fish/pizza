@@ -66,6 +66,7 @@ const App = () => {
 	const addItemToCart = (item) => addToCard(dispatch, item);
 	const removeItemFromCart = (id) => removeFromCart(dispatch, { id });
 	const handleSubmitOrder = (delivery) => {
+		navigateToMenu();
 		orderSubmit(dispatch, cart, currency, delivery);
 	};
 	const navigateToMenu = () => {
@@ -109,6 +110,7 @@ const App = () => {
 				toggleCurrency,
 				navigateToCart,
 				navigateToUser,
+				navigateToMenu,
 			}}
 				showMenuLinks={route === Routes.MENU}
 				onClickLogin={() => setShowLogin(true)}
