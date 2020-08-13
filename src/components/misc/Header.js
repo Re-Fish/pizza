@@ -13,12 +13,13 @@ import { formatAmount, getCartSum } from '../../helpers/cardHelpers';
 import { userType } from '../propTypes';
 
 const Header = ({
-	currency,
 	cart,
+	isChangingCart,
+	currency,
 	toggleCurrency,
+	navigateToMenu,
 	navigateToCart,
 	navigateToUser,
-	isChangingCart,
 	showMenuLinks,
 	onClickLogin,
 	user,
@@ -27,14 +28,14 @@ const Header = ({
 	const itemsSum = getCartSum(cart);
 	return (
 		<>
-			<Jumbotron fluid className="m-0 py-1 Tomato">
+			<Jumbotron fluid className="m-0 py-1 tomato">
 				<img alt="pizza-logo" src="images/pizza.png" className='App-logo' />
 				<h1 className="display-4">Pizza Shop</h1>
 				<p className="lead">* Easy order * Fast delivery * Tasty meal *</p>
 			</Jumbotron>
 
-			<Navbar className="m-0 py-1 Tomato" variant="dark" sticky="top" expand="lg" collapseOnSelect>
-				<Navbar.Brand href="#home" className="font-weight-bold">
+			<Navbar className="m-0 py-1 tomato" variant="dark" sticky="top" expand="lg" collapseOnSelect>
+				<Navbar.Brand href="#home" className="font-weight-bold" onClick={navigateToMenu}>
 					<Image alt="pizza-logo" src="images/pizza.png" width="30" height="30" className="d-inline-block align-top" />
 					{' '}
 					Pizza Shop
@@ -46,17 +47,15 @@ const Header = ({
 
 				<Navbar.Toggle aria-controls="basic-navbar-nav" />
 				<Navbar.Collapse id="basic-navbar-nav" className="justify-content-end font-weight-bold">
-					{showMenuLinks && (
-						<Nav className="text-uppercase">
-							{Object.keys(MenuGroups).map((menuGroup) =>
-								<Nav.Link href={`#${menuGroup}`} key={menuGroup}>
+					<Nav>
+						{showMenuLinks && (
+							Object.keys(MenuGroups).map((menuGroup) =>
+								<Nav.Link href={`#${menuGroup}`} key={menuGroup} className="text-uppercase">
 									{MenuGroupNames[menuGroup]}
 								</Nav.Link>
-							)}
-						</Nav>
-					)}
+							)
+						)}
 
-					<Nav>
 						<Nav.Link onClick={navigateToCart} >
 							<Image src="images/cart.png" width="30" height="30" />
 							{isChangingCart
@@ -79,6 +78,7 @@ const Header = ({
 								)
 							}
 						</Nav.Link>
+
 						<Button
 							variant="success"
 							size="sm"
@@ -87,6 +87,7 @@ const Header = ({
 						>
 							€ / $
 						</Button>
+
 						{!user
 							? (
 								<Nav.Link onClick={onClickLogin}>
