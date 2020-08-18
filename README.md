@@ -1,6 +1,6 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-This is a test task from Innoscripta - pizza internet store. You can check it [here](http://pizzza.s3-website.eu-central-1.amazonaws.com/).
+This is a test task from Innoscripta - pizza internet store. You can check it [here](http://pizza-shop.s3-website.eu-central-1.amazonaws.com/).
 To log in use `refish@tuta.io` without password.
 
 ## Available Scripts
